@@ -1,3 +1,5 @@
+from time import sleep
+
 from selenium.webdriver.common.by import By
 from pages.base_page import Page
 
@@ -31,7 +33,7 @@ class RegisterAgency(Page):
     def click_sign_in(self):
         self.wait_element_clickable_click(*self.SIGN_IN)
 
-    # Enter the log in credentials and click on the continue button
+    # Enter the login credentials and click on the continue button
     def login_details_and_click(self):
         self.input_text("vn.sumana@gmail.com", *self.EMAIL_FIELD)
         self.input_text("sReelly", *self.PASSWORD_FIELD)
@@ -47,6 +49,7 @@ class RegisterAgency(Page):
 
     # Enter all the details for new agency to register
     def enter_information(self):
+        self.presence_of_element_located(*self.COUNTRY_NAME)
         self.input_text("USA", *self.COUNTRY_NAME)
         self.input_text("test", *self.COMPANY_NAME)
         self.input_text("Developer", *self.POSITION)
@@ -57,7 +60,6 @@ class RegisterAgency(Page):
 
     # validate all the information entered
     def verify_information(self):
-        # print("country -- " + self.find_element(*self.COUNTRY_NAME).get_attribute("value"))
         self.verify_attribute_value("USA", *self.COUNTRY_NAME)
         self.verify_attribute_value("test", *self.COMPANY_NAME)
         self.verify_attribute_value("Developer", *self.POSITION)
