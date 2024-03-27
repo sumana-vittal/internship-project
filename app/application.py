@@ -1,4 +1,5 @@
 from pages.base_page import Page
+from pages.contact_us_page import ContactUsPage
 from pages.off_plan_page import OffPlanPage
 from pages.register_agency_mobile_page import RegisterAgencyMobile
 from pages.register_agency_page import RegisterAgency
@@ -13,3 +14,4 @@ class Application:
         self.register_agency_mobile = RegisterAgencyMobile(driver)
         self.registration_page = RegistrationPage(driver)
         self.off_plan_page = OffPlanPage(driver)
+        self.contact_us_page = ContactUsPage(driver)
