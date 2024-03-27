@@ -14,11 +14,18 @@ class Page:
     def find_element(self, *locator):
         return self.driver.find_element(*locator)
 
+    def find_elements(self, *locator):
+        return self.driver.find_elements(*locator)
+
     def input_text(self, text, *locator):
         self.driver.find_element(*locator).send_keys(text)
 
     def click(self, *locator):
         self.driver.find_element(*locator).click()
+
+    def checkbox_check(self, *locator):
+        if not self.find_element(*locator).is_selected():
+            self.click(*locator)
 
     def switch_to_new_window(self):
         self.wait.until(
@@ -47,6 +54,12 @@ class Page:
             message=f"Couldn't find the presence of element at '{locator}'"
         )
 
+    def visibility_of_element_located(self, *locator):
+        self.wait.until(
+            EC.visibility_of_element_located(locator),
+            message=f"Couldn't find the presence of element at '{locator}'"
+        )
+
     def text_present_in_element(self, text, *locator):
         self.wait.until(
             EC.text_to_be_present_in_element(locator, text),
@@ -57,6 +70,14 @@ class Page:
         actual_text = self.driver.find_element(*locator).get_attribute("value")
         assert expected_text == actual_text, f"Expected {expected_text} but got {actual_text}"
 
+    def verify_checkbox_attribute_value(self, *locator):
+        actual_text = self.driver.find_element(*locator).is_selected()
+        assert actual_text, f"Expected True but got {actual_text}"
+
+    def verify_by_webelement(self, element, expected_text):
+        actual_text = element.text
+        assert expected_text == actual_text, f"Expected {expected_text} but got {actual_text}"
+
     def verify_text(self, expected_text, *locator):
         actual_text = self.driver.find_element(*locator).text
         assert expected_text == actual_text, f"Expected {expected_text} but got {actual_text}"
@@ -65,4 +86,23 @@ class Page:
         actual_text = self.driver.find_element(*locator).text
         assert expected_text in actual_text, f"Expected {expected_text} but got {actual_text}"
 
+    def wait_for_url_to_change(self, initial_url):
+        self.wait.until(
+            EC.url_changes(initial_url),
+            message=f'Url {initial_url} did not change'
+        )
 
+    def scroll(self):
+        self.driver.execute_script('window.scrollBy(0, 1000)')
+
+    def verify_partial_url(self, expected_partial_url):
+        self.wait.until(
+            EC.url_contains(expected_partial_url),
+            message=f'Expected {expected_partial_url} not in url'
+        )
+
+    def verify_url(self, url):
+        self.wait.until(
+            EC.url_to_be(url),
+            message=f'Expected {url} is not present.'
+        )

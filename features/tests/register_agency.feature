@@ -1,5 +1,6 @@
 Feature: Test Scenarios to connect the company
 
+  @smoke
   Scenario: User clicks on “Connect the company” button and can use the form to register a new agency
     Given Open the main page
     When Click on the sign in
@@ -10,3 +11,11 @@ Feature: Test Scenarios to connect the company
     Then Verify the right information is present
     And Verify "send request" button is available and clickable
     And Verify "buy a subscription" button is available and clickable
+
+  Scenario: The user can click on “Connect the company” on the left side of the main page
+    Given Open the main page
+    When Click on the sign in
+    When Log in to the page.
+    And Click on "Connect the company".
+    And Switch the new tab
+    Then Verify the right tab opens.

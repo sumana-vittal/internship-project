@@ -1,5 +1,3 @@
-from time import sleep
-
 from selenium.webdriver.common.by import By
 from pages.base_page import Page
 
@@ -77,3 +75,6 @@ class RegisterAgency(Page):
     def verify_buy_subscription(self):
         self.presence_of_element_located(*self.BUY_SUBSCRIPTION_BTN)
         self.wait_element_clickable(*self.BUY_SUBSCRIPTION_BTN)
+
+    def verify_register_agency_tab(self):
+        self.verify_partial_url('book-presentation')

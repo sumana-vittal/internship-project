@@ -1,4 +1,3 @@
-from time import sleep
 from behave import given, when, then
 
 
@@ -47,3 +46,8 @@ def verify_request_button(context):
 @then('Verify "buy a subscription" button is available and clickable')
 def verify_buy_subscription(context):
     context.app.register_agency.verify_buy_subscription()
+
+
+@then('Verify the right tab opens.')
+def verify_register_agency_tab(context):
+    pass
